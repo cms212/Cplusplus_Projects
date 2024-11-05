@@ -1,0 +1,1 @@
+g++ CMakeFiles/CG.dir/main.cpp.o CMakeFiles/CG.dir/Casino_Game.cpp.o -o CG 

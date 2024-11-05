@@ -1,0 +1,3 @@
+/home/chris/Cplusplus_Projects/Beginner/Casino_Game/build/CMakeFiles/CG.dir
+/home/chris/Cplusplus_Projects/Beginner/Casino_Game/build/CMakeFiles/edit_cache.dir
+/home/chris/Cplusplus_Projects/Beginner/Casino_Game/build/CMakeFiles/rebuild_cache.dir
