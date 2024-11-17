@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/main.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/main.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/main.cpp",
+  "output": "CMakeFiles/snake.dir/main.cpp.o"
+},
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/block.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/block.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/block.cpp",
+  "output": "CMakeFiles/snake.dir/block.cpp.o"
+},
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/snake.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/snake.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/snake.cpp",
+  "output": "CMakeFiles/snake.dir/snake.cpp.o"
+},
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/food.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/food.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/food.cpp",
+  "output": "CMakeFiles/snake.dir/food.cpp.o"
+},
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/snake_game.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/snake_game.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/snake_game.cpp",
+  "output": "CMakeFiles/snake.dir/snake_game.cpp.o"
+}
+]
