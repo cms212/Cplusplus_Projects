@@ -19,7 +19,7 @@ snake_game::snake_game(sf::RenderWindow &window){
         this->window->close();
     }
 
-    if(!this->food_buffer.loadFromFile("../../Snake/wav_files/mixkit-player-losing-or-failing-2042.wav")){
+    if(!this->lose_buffer.loadFromFile("../../Snake/wav_files/mixkit-player-losing-or-failing-2042.wav")){
         cout << "issue loading sound";
         this->window->close();
     }
