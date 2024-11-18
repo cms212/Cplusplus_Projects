@@ -16,6 +16,6 @@ set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_BUILD_TYPE Debug)
 
 # Add the source files for your project
-add_executable(snake main.cpp block.cpp snake.cpp food.cpp snake_game.cpp)
+add_executable(snake main.cpp block.cpp snake.cpp food.cpp snake_game.cpp main_menu.cpp score.cpp)
 
-target_link_libraries(snake PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(snake PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)

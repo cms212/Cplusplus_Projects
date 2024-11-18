@@ -9,17 +9,24 @@ using namespace std;
 
 
 
-snake::snake(/* args */){
+snake::snake(direction d, int x, int y){
 
-    block* b = new block(24, 24, 255,0,0);
+    block* b = new block(y, x, 0,255,0);
     this->head = b;
     this->tail = b;
-    this->head->setdirection(NONE);
+    this->head->setdirection(d);
+    this->isalive = true;
 };
 snake::~snake(){
     delete this->head;
 };
+
+bool snake::getisAlive(){
+    return this->isalive;
+};
+
 void snake::updateSnake(){
+        updateBlockdirections();
         updateBlockLocations();
         if (this->head->getdirection() == UP)
         {
@@ -37,7 +44,7 @@ void snake::updateSnake(){
         {
             this->head->setcol(this->head->getcol() + 1);
         }
-        
+        return;
     };
 void snake::updateDirection(sf::RenderWindow* window){
         
@@ -72,6 +79,7 @@ void snake::updateDirection(sf::RenderWindow* window){
                 window->close();
             }
         }
+    return;
 };
 
 void snake::addBlock(){
@@ -99,6 +107,7 @@ void snake::addBlock(){
         b->setdirection(this->tail->getdirection());
         this->tail = b;
     }
+    return;
 };
 
 void snake::drawSnake(sf::RenderWindow* window){
@@ -117,21 +126,23 @@ void snake::drawSnake(sf::RenderWindow* window){
         }
         curr = curr->getprevious();
     }
+    return;
 };
 
-void snake::checkCollisionFood(food* f){
+bool snake::checkCollisionFood(food* f){
     if (this->head->getrow() == f->getrow() && this->head->getcol() == f->getcol()){
         addBlock();
-        int x = rand()%49;
-        int y = rand()%49;
+        int x = rand()%50;
+        int y = rand()%47 + 3;
         while(f->checkLocation(this->tail, x, y)){
             x = rand() % 49;
             y = rand() % 49;
         }
         f->setcol(x);
         f->setrow(y);
+        return true;
     }
-
+    return false;
 };
 
 void snake::updateBlockdirections(){
@@ -140,6 +151,7 @@ void snake::updateBlockdirections(){
         curr->setdirection(curr->getprevious()->getdirection());
         curr = curr->getprevious();
     }
+    return;
 };
 
 void snake::updateBlockLocations(){
@@ -150,5 +162,46 @@ void snake::updateBlockLocations(){
         curr->setcol(curr->getprevious()->getcol());
         curr = curr->getprevious();
     }
+    return;
 };
+
+void snake::checkCollisionBody(){
+    block* curr = this->tail;
+
+    while (curr->getprevious() != nullptr){
+        if(curr->getrow() == this->head->getrow() && curr->getcol() == this->head->getcol()){
+            this->isalive = false;
+            return;
+        }
+        curr = curr->getprevious();
+    }
+};
+
+void snake::checkCollisionwWall(){
+    if(this->head->getrow() < 2 || this->head->getrow() > 49 || this->head->getcol() < 0
+    || this->head->getcol() > 49){
+        this->isalive = false;
+        return;
+    }
+    return;
+};
+
+int snake::getHeadrow(){
+    return this->head->getrow();
+}
+
+int snake::getHeadcol(){
+    return this->head->getcol();
+}
+
+void snake::setSnakeDirection(direction d){
+    this->head->setdirection(d);
+};
+
+direction snake::getSnakeDirection(){
+    return this->head->getdirection();
+};
+
+
+
 

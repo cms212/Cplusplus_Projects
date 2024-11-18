@@ -13,17 +13,25 @@ private:
     block* tail;
     sf::Event event;
     vector<block*> blocks;
+    bool isalive;
 
 public:
-    snake(/* args */);
+    snake(direction d, int x, int y);
     ~snake();
     void updateSnake();
     void updateDirection(sf::RenderWindow* window);
     void updateBlockdirections();
     void addBlock();
     void drawSnake(sf::RenderWindow* window);
-    void checkCollisionFood(food* f);
+    bool checkCollisionFood(food* f);
     void updateBlockLocations();
+    bool getisAlive();
+    void checkCollisionBody();
+    void checkCollisionwWall();
+    int  getHeadrow();
+    int  getHeadcol();
+    void  setSnakeDirection(direction d);
+    direction getSnakeDirection();
 };
 
 
