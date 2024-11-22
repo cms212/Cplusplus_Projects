@@ -62,7 +62,8 @@
 				3,
 				4,
 				5,
-				6
+				6,
+				7
 			]
 		}
 	],
@@ -121,7 +122,8 @@
 				3,
 				4,
 				5,
-				6
+				6,
+				7
 			]
 		}
 	],
@@ -167,6 +169,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "score.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "end_display.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

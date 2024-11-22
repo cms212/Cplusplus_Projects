@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/chris/Cplusplus_Projects/Medium/Snake/block.cpp" "CMakeFiles/snake.dir/block.cpp.o" "gcc" "CMakeFiles/snake.dir/block.cpp.o.d"
+  "/home/chris/Cplusplus_Projects/Medium/Snake/end_display.cpp" "CMakeFiles/snake.dir/end_display.cpp.o" "gcc" "CMakeFiles/snake.dir/end_display.cpp.o.d"
   "/home/chris/Cplusplus_Projects/Medium/Snake/food.cpp" "CMakeFiles/snake.dir/food.cpp.o" "gcc" "CMakeFiles/snake.dir/food.cpp.o.d"
   "/home/chris/Cplusplus_Projects/Medium/Snake/main.cpp" "CMakeFiles/snake.dir/main.cpp.o" "gcc" "CMakeFiles/snake.dir/main.cpp.o.d"
   "/home/chris/Cplusplus_Projects/Medium/Snake/main_menu.cpp" "CMakeFiles/snake.dir/main_menu.cpp.o" "gcc" "CMakeFiles/snake.dir/main_menu.cpp.o.d"

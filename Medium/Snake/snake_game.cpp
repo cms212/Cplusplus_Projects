@@ -13,7 +13,6 @@ snake_game::snake_game(sf::RenderWindow &window){
     this->f = new food(rand() % 49, rand() % 49);
     this->game_score = new score();
     this->music_index = 0;
-
     if(!this->food_buffer.loadFromFile("../../Snake/wav_files/mixkit-retro-arcade-casino-notification-211.wav")){
         cout << "issue loading sound";
         this->window->close();
@@ -31,7 +30,7 @@ snake_game::snake_game(sf::RenderWindow &window){
 snake_game::~snake_game(){
     delete this->s;
     delete this->f;
-    delete this->game_score;
+    //delete this->game_score;
 };
 void snake_game::run(){
     while(this->window->isOpen()){
@@ -46,7 +45,8 @@ void snake_game::run(){
         this->s->updateSnake();
         if (!checkCollisions()){
             this->lose_sound.play();
-            this->window->close();
+            this->game_music.stop();
+            break;
         }
         this->s->drawSnake(this->window);
         this->f->drawFood(this->window);
@@ -75,4 +75,8 @@ void snake_game::musicCycle(){
             this->music_index = 0;
         }
     }
+};
+
+score* snake_game::getGameScore(){
+    return this->game_score;
 };

@@ -40,5 +40,11 @@
   "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/score.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/score.cpp",
   "file": "/home/chris/Cplusplus_Projects/Medium/Snake/score.cpp",
   "output": "CMakeFiles/snake.dir/score.cpp.o"
+},
+{
+  "directory": "/home/chris/Cplusplus_Projects/Medium/Snake/build",
+  "command": "g++   -g -std=gnu++11 -o CMakeFiles/snake.dir/end_display.cpp.o -c /home/chris/Cplusplus_Projects/Medium/Snake/end_display.cpp",
+  "file": "/home/chris/Cplusplus_Projects/Medium/Snake/end_display.cpp",
+  "output": "CMakeFiles/snake.dir/end_display.cpp.o"
 }
 ]

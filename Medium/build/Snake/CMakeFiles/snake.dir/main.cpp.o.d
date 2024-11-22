@@ -251,4 +251,5 @@ CMakeFiles/snake.dir/main.cpp.o: \
  /home/chris/Cplusplus_Projects/Medium/Snake/block.h \
  /home/chris/Cplusplus_Projects/Medium/Snake/food.h \
  /home/chris/Cplusplus_Projects/Medium/Snake/score.h \
- /home/chris/Cplusplus_Projects/Medium/Snake/main_menu.h
+ /home/chris/Cplusplus_Projects/Medium/Snake/main_menu.h \
+ /home/chris/Cplusplus_Projects/Medium/Snake/end_display.h

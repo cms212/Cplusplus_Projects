@@ -27,6 +27,8 @@ class snake_game{
         void run();
         bool checkCollisions();
         void musicCycle();
+        score* getGameScore();
+
 };
 
 #endif

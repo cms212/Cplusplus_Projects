@@ -153,6 +153,30 @@ block.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snake.dir/build.make CMakeFiles/snake.dir/block.cpp.s
 .PHONY : block.cpp.s
 
+end_display.o: end_display.cpp.o
+.PHONY : end_display.o
+
+# target to build an object file
+end_display.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snake.dir/build.make CMakeFiles/snake.dir/end_display.cpp.o
+.PHONY : end_display.cpp.o
+
+end_display.i: end_display.cpp.i
+.PHONY : end_display.i
+
+# target to preprocess a source file
+end_display.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snake.dir/build.make CMakeFiles/snake.dir/end_display.cpp.i
+.PHONY : end_display.cpp.i
+
+end_display.s: end_display.cpp.s
+.PHONY : end_display.s
+
+# target to generate assembly for a file
+end_display.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snake.dir/build.make CMakeFiles/snake.dir/end_display.cpp.s
+.PHONY : end_display.cpp.s
+
 food.o: food.cpp.o
 .PHONY : food.o
 
@@ -309,6 +333,9 @@ help:
 	@echo "... block.o"
 	@echo "... block.i"
 	@echo "... block.s"
+	@echo "... end_display.o"
+	@echo "... end_display.i"
+	@echo "... end_display.s"
 	@echo "... food.o"
 	@echo "... food.i"
 	@echo "... food.s"
