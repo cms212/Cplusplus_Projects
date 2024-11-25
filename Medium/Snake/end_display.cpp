@@ -2,23 +2,151 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 end_display::end_display(sf::RenderWindow &window, score* game_score){
     this->game_score = game_score;
     this->window = &window;
+    this->frame_count = 0;
     load_scores();
-    cout << "Scores size: " << this->scores.size() << "\n";
+    //cout << "Scores size: " << this->scores.size() << "\n";
     isHighScore();
-    cout << "is high score: " << this->ishighscore << "\n";
+    //cout << "is high score: " << this->ishighscore << "\n";
+    
+    if (!this->font.loadFromFile("../../Snake/fonts/Roboto-Bold.ttf")){
+        cout << "issue loading font";
+        this->window->close();
+    }
+
+    this->display_text.setFont(this->font);
+    if (this->ishighscore){
+        this->display_text.setString("You Got a High Score! Enter Initials!");
+        this->display_text.setPosition(100,25);
+        this->display_text.setCharacterSize(50);
+        this->display_text.setFillColor(sf::Color::Green);
+    }
 };
 end_display::~end_display(){
     delete this->game_score;
 };
 
 void end_display::run_entry(){
-    while(this->entry_index < 3){
-
+    int letter_index = 0;
+    bool display = true;
+    int entry_index = 0;
+    sf::Text entry_letter1;
+    sf::Text entry_letter2;
+    sf::Text entry_letter3;
+    vector<pair<reference_wrapper<sf::Text>, int>>  entry_letters= {{entry_letter1,0}, {entry_letter2,0}, {entry_letter3,0}};
+    sf::Text underscore;
+    int entry_x = 400;
+    int entry_y = 100;
+    entry_letter1.setPosition(entry_x,entry_y);
+    entry_letter2.setPosition(entry_x + 50, entry_y);
+    entry_letter3.setPosition(entry_x + 100, entry_y);
+    entry_letter1.setFont(this->font);
+    entry_letter2.setFont(this->font);
+    entry_letter3.setFont(this->font);
+    entry_letter1.setString(this->letters[entry_letters[0].second]);
+    entry_letter2.setString(this->letters.at(entry_letters[1].second));
+    entry_letter3.setString(this->letters.at(entry_letters[2].second));
+    entry_letter1.setFillColor(sf::Color::White);
+    entry_letter2.setFillColor(sf::Color::White);
+    entry_letter3.setFillColor(sf::Color::White);
+    entry_letter1.setCharacterSize(50);
+    entry_letter2.setCharacterSize(50);
+    entry_letter3.setCharacterSize(50);
+    underscore.setPosition(entry_x, entry_y);
+    underscore.setFont(this->font);
+    underscore.setString("_");
+    underscore.setCharacterSize(75);
+    sf::Event event;
+    while(true){
+        this->window->clear(sf::Color::Black);
+        while (window->pollEvent(event)){
+            if (event.type == sf::Event::Closed) {
+                this->window->close();
+                return;
+            }
+            if(event.type == sf::Event::KeyPressed){
+            //cout << "keypressed\n";
+            //cout << this->directionChange.key.code << "\n";
+                if (event.key.code == sf::Keyboard::Up){
+                    entry_letters[entry_index].second += 1;
+                    if(entry_letters[entry_index].second == 26){
+                        entry_letters[entry_index].second = 0;
+                    }
+                    entry_letters[entry_index].first.get().setString(this->letters.at(entry_letters[entry_index].second));
+                }
+                if (event.key.code == sf::Keyboard::Down){
+                    entry_letters[entry_index].second -= 1;
+                    if(entry_letters[entry_index].second == -1){
+                        entry_letters[entry_index].second = 25;
+                    }
+                    entry_letters[entry_index].first.get().setString(this->letters.at(entry_letters[entry_index].second));
+                }
+                if (event.key.code == sf::Keyboard::Left){
+                    if(entry_index > 0){
+                        entry_letters[entry_index].first.get().setString(this->letters.at(entry_letters[entry_index].second));
+                        entry_index -= 1;
+                        entry_x -= 50;
+                        underscore.setPosition(entry_x, entry_y);
+                    }
+                }
+                if (event.key.code == sf::Keyboard::Right){
+                    if (entry_index < 2){
+                        entry_letters[entry_index].first.get().setString(this->letters.at(entry_letters[entry_index].second));
+                        entry_index += 1;
+                        entry_x += 50;
+                        underscore.setPosition(entry_x, entry_y);
+                    }
+                }
+                if(event.key.code == sf::Keyboard::Enter){
+                    //put togther user name
+                    //sort scores
+                    //save to text file
+                    this->window->clear();
+                    //return;
+                    for (int i  = 0; i < entry_letters.size(); i++){
+                        this->user_entry += this->letters[entry_letters[i].second];
+                    }
+                    sort_save();
+                    return;
+                }
+            
+                if (event.key.code == sf::Keyboard::Escape){
+                    window->close();
+                    return;
+                //cout << "R\n";
+                }
+            }
+            
+            
+        }
+        if (this->frame_count == 5){
+            display = !display;
+            this->frame_count = 0;
+            if (display){
+                entry_letters[entry_index].first.get().setString(this->letters.at(entry_letters[entry_index].second));
+                //underscore.setString("_");
+            }
+            else{
+                //cout << "here\n";
+                entry_letters[entry_index].first.get().setString("");
+                //underscore.setString("");
+            }
+        }
+        for (int i = 0; i < entry_letters.size(); i++){
+            
+            this->window->draw(entry_letters[i].first);
+        }
+        this->window->draw(underscore);
+        this->window->draw(display_text);
+        window->display();
+        sf::sleep(sf::milliseconds(100));
+        this->frame_count += 1;
+        //cout << this->frame_count;
     }
 };
 void end_display::run(){
@@ -54,7 +182,7 @@ void end_display::isHighScore(){
     int index;
     if (this->scores.size() < 10){
         this->ishighscore = true;
-        cout << "here1\n";
+        //cout << "here1\n";
     }
     else{
         int min = this->scores[0].second;
@@ -64,9 +192,41 @@ void end_display::isHighScore(){
                 min = this->scores[i].second;
             }
         }
-        cout << "here2\n";
+        //cout << "here2\n";
         if(min < this->game_score->getLevelScore()){
             this->ishighscore = true;
         }
     }
 };
+
+void end_display::sort_save(){
+    this->scores.push_back(make_pair(this->user_entry, this->game_score->getLevelScore()));
+    int j;
+    pair<string, int> temp;
+    for (int i = 0; i < this->scores.size(); i++){
+        j = i;
+        while (j != 0 && this->scores[j].second > this->scores[j-1].second){
+            temp = this->scores[j-1];
+            this->scores[j-1] = this->scores[j];
+            this->scores[j] = temp;
+            j -= 1;
+        }
+    }
+    while(this->scores.size() > 10){
+        this->scores.pop_back();
+    }
+
+    for (const auto& a: this->scores){
+        cout << a.first << " : " << a.second << "\n";
+    }
+    ofstream write_scores("../../Snake/scores.txt");
+    if (write_scores.is_open()){
+        for (const auto& score : this->scores){
+            write_scores << score.first << "\n" << score.second << "\n";
+        }
+    }
+    else{
+        cout << "Issue opening scores text file\n";
+    }
+};
+

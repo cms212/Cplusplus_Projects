@@ -14,6 +14,7 @@ int main(int argc, char *argv[]){
     
     sg->run();
     end_display* ed = new end_display(window, sg->getGameScore());
+    ed->run_entry();
     ed->run();
     //delete sg;
     return 0;

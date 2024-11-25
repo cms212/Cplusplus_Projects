@@ -21,6 +21,7 @@ class main_menu{
         int frame_count;
         bool menu_stay;
         int snake_length;
+        string user_entry;
 
     public:
         main_menu(sf::RenderWindow &window);
