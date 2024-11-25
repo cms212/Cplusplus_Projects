@@ -1,3 +1,0 @@
-/home/chris/Cplusplus_Projects/Medium/build/Snake/CMakeFiles/snake.dir
-/home/chris/Cplusplus_Projects/Medium/build/Snake/CMakeFiles/edit_cache.dir
-/home/chris/Cplusplus_Projects/Medium/build/Snake/CMakeFiles/rebuild_cache.dir
