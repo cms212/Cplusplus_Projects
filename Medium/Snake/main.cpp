@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
     mm->menuRun();
     //delete mm;
     snake_game* sg = new snake_game(window);
-    
+    cout << "hi\n";
     sg->run();
     end_display* ed = new end_display(window, sg->getGameScore());
     ed->run_entry();
