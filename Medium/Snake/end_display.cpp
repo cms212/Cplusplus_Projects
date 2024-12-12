@@ -5,11 +5,12 @@
 #include <ostream>
 
 using namespace std;
-end_display::end_display(sf::RenderWindow &window, score* game_score){
-    this->game_score = game_score;
+end_display::end_display(sf::RenderWindow &window, int s){
     this->window = &window;
     this->frame_count = 0;
     load_scores();
+    this->game_score = s;
+    cout << this->game_score;
     //cout << "Scores size: " << this->scores.size() << "\n";
     isHighScore();
     //cout << "is high score: " << this->ishighscore << "\n";
@@ -20,6 +21,7 @@ end_display::end_display(sf::RenderWindow &window, score* game_score){
     }
 
     this->display_text.setFont(this->font);
+    this->enter_Text.setFont(this->font);
     if (this->ishighscore){
         this->display_text.setString("You Got a High Score! Enter Initials!");
         this->display_text.setPosition(100,25);
@@ -28,8 +30,11 @@ end_display::end_display(sf::RenderWindow &window, score* game_score){
     }
 };
 end_display::~end_display(){
-    delete this->game_score;
 };
+
+int end_display::getScore(){
+    return this->game_score;
+}
 
 void end_display::run_entry(){
     int letter_index = 0;
@@ -117,7 +122,7 @@ void end_display::run_entry(){
             
                 if (event.key.code == sf::Keyboard::Escape){
                     window->close();
-                    return;
+                    exit(0);
                 //cout << "R\n";
                 }
             }
@@ -150,18 +155,52 @@ void end_display::run_entry(){
     }
 };
 void end_display::run(){
+    this->display_text.setString("HIGH SCORES");
+    this->display_text.setPosition(250,50);
+    this->display_text.setCharacterSize(75);
+    this->display_text.setFillColor(sf::Color::Green);
+    this->enter_Text.setString("PRESS ENTER TO PLAY AGAIN!");
+    this->enter_Text.setPosition(150,750);
+    this->enter_Text.setCharacterSize(50);
+    this->enter_Text.setFillColor(sf::Color::Green);
+    this->continue_game = false;
+    set_HighScores_text();
     while(this->window->isOpen()){
         sf::Event event;
         while (window->pollEvent(event)){
+             if(event.type == sf::Event::KeyPressed){
+                if (event.key.code == sf::Keyboard::Escape){
+                    window->close();
+                    return;
+                //cout << "R\n";
+                }
+                if (event.key.code == sf::Keyboard::Enter){
+                    //window->close();
+                    this->continue_game = true;
+                    this->window->clear();
+                    return;
+                //cout << "R\n";
+                }
+             }
             if (event.type == sf::Event::Closed){
                 window->close();
+                return;
             }
         }
         this->window->clear(sf::Color::Black);
+        this->window->draw(this->display_text);
+        this->window->draw(this->enter_Text);
+        for (const auto& a: this->high_scores){
+            this->window->draw(a);
+        }
         window->display();
         sf::sleep(sf::milliseconds(100));
     }
 };
+
+bool end_display::getContinueGame(){
+    return this->continue_game;
+}
 void end_display::load_scores(){
     fstream read_scores;
     read_scores.open("../../Snake/scores.txt", ios::in);
@@ -180,6 +219,7 @@ void end_display::load_scores(){
 };
 void end_display::isHighScore(){
     int index;
+    this->ishighscore = false;
     if (this->scores.size() < 10){
         this->ishighscore = true;
         //cout << "here1\n";
@@ -193,14 +233,23 @@ void end_display::isHighScore(){
             }
         }
         //cout << "here2\n";
-        if(min < this->game_score->getLevelScore()){
+        if(min < this->game_score){
             this->ishighscore = true;
         }
     }
+    cout << this->ishighscore;
 };
 
+void end_display::setScore(int s){
+    this->game_score = s;
+}
+
+bool end_display::getIsHighScore(){
+    return this->ishighscore;
+}
+
 void end_display::sort_save(){
-    this->scores.push_back(make_pair(this->user_entry, this->game_score->getLevelScore()));
+    this->scores.push_back(make_pair(this->user_entry, this->game_score));
     int j;
     pair<string, int> temp;
     for (int i = 0; i < this->scores.size(); i++){
@@ -227,6 +276,21 @@ void end_display::sort_save(){
     }
     else{
         cout << "Issue opening scores text file\n";
+    }
+};
+
+void end_display::set_HighScores_text(){
+    int x = 400;
+    int y = 200;
+    for (int i = 0; i < this->scores.size(); i++){
+        sf::Text text;
+        text.setFont(this->font);
+        text.setString(this->scores[i].first + "  " + to_string(this->scores[i].second));
+        text.setPosition(x,y);
+        text.setFillColor(sf::Color::White);
+        text.setCharacterSize(30);
+        this->high_scores.push_back(text);
+        y+= 50;
     }
 };
 

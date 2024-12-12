@@ -12,13 +12,16 @@ class end_display
 {
 private:
     vector<pair<string,int>> scores;
-    score* game_score;
+    vector<sf::Text> high_scores;
+    int game_score;
     sf::RenderWindow* window;
-    bool ishighscore = false;
+    bool ishighscore;
     int frame_count;
     string user_entry;
     sf::Font font;
     sf::Text display_text;
+    sf::Text enter_Text;
+    bool continue_game;
     map<int, string> letters = {
         {0, "A"}, {1, "B"}, {2, "C"}, {3, "D"}, {4, "E"},
         {5, "F"}, {6, "G"}, {7, "H"}, {8, "I"}, {9, "J"},
@@ -28,13 +31,18 @@ private:
         {25, "Z"}
     };
 public:
-    end_display(sf::RenderWindow &window, score* game_score);
+    end_display(sf::RenderWindow &window, int s);
     ~end_display();
     void run();
     void load_scores();
     void isHighScore();
+    bool getIsHighScore();
     void run_entry();
     void sort_save();
+    void set_HighScores_text();
+    bool getContinueGame();
+    void setScore(int s);
+    int getScore();
 };
 
 

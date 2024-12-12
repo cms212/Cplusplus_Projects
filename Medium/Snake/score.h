@@ -7,10 +7,13 @@
 class score{
     private:
         int level_score;
-        int global_score;
+        int level;
         sf::Text score_text;
         std::string score_string;
         sf::Font score_font;
+        sf::Text Level_text;
+        std::string level_string;
+        sf::Font level_font;
     public: 
         score();
         ~score();
@@ -19,8 +22,10 @@ class score{
         void incrementScore();
         void resetScore();
         sf::Text getText();
+        sf::Text getText2();
         void setText();
         void drawScore(sf::RenderWindow* window);
+        void drawLevel(sf::RenderWindow* window);
 
 };
 

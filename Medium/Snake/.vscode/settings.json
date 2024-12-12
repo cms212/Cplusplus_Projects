@@ -5,6 +5,7 @@
         "new": "cpp",
         "vector": "cpp",
         "random": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "set": "cpp"
     }
 }

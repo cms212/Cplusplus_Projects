@@ -5,6 +5,8 @@
 #include "snake.h"
 #include "food.h"
 #include "score.h"
+#include "loader.h"
+
 
 class snake_game{
     private:
@@ -17,12 +19,15 @@ class snake_game{
         sf::Sound lose_sound;
         snake* s;
         food* f;
+        loader* l;
         score* game_score;
         vector<string> wav_files = {"Level1.wav", "Level2.wav", "Level3.wav"};
+        set<tuple<int,int>>* o_coors;
         int music_index;
+        bool extreme_mode;
 
     public:
-        snake_game(sf::RenderWindow &window);
+        snake_game(sf::RenderWindow &window, bool extreme_mode);
         ~snake_game();
         void run();
         bool checkCollisions();

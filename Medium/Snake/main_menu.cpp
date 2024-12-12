@@ -26,6 +26,16 @@ main_menu::main_menu(sf::RenderWindow &window){
     this->button_text.setCharacterSize(50);
     this->button_text.setFillColor(sf::Color::White);
     this->button_text.setPosition(425,265);
+
+    this->extreme_game_button = sf::RectangleShape(sf::Vector2f(400.0,100.0));
+    this->extreme_game_button.setPosition(300, 500);
+    this->extreme_game_button.setFillColor(sf::Color(200,180,33));
+
+    this->extreme_button_text.setFont(this->font);
+    this->extreme_button_text.setString("Extreme");
+    this->extreme_button_text.setCharacterSize(50);
+    this->extreme_button_text.setFillColor(sf::Color::White);
+    this->extreme_button_text.setPosition(410,515);
     //cout << this->button_text.getGlobalBounds().height << "\n";
     if(!this->buffer.loadFromFile("../../Snake/wav_files/TitleScreen.wav")){
         cout << "issue loading sound";
@@ -73,6 +83,8 @@ void main_menu::menuRun(){
         this->window->draw(this->menu_text);
         this->window->draw(this->normal_game_button);
         this->window->draw(this->button_text);
+        this->window->draw(this->extreme_game_button);
+        this->window->draw(this->extreme_button_text);
         updateMenuSnake();
         this->menu_snake->drawSnake(this->window);
         checkSound();
@@ -85,6 +97,13 @@ void main_menu::menuRun(){
 };
 void main_menu::checkButtons(){
     while (this->window->pollEvent(this->event)) {
+        if(event.type == sf::Event::KeyPressed){
+            if (event.key.code == sf::Keyboard::Escape){
+                    window->close();
+                    exit(0);
+                //cout << "R\n";
+                }
+        }
             if (this->event.type == sf::Event::Closed) {
                 this->window->close();
             }
@@ -92,6 +111,13 @@ void main_menu::checkButtons(){
                 if ((this->event.mouseButton.x >= 300 && this->event.mouseButton.x <= 700)
                     && (this->event.mouseButton.y >= 250 && this->event.mouseButton.y <= 350)){
                         this->menu_stay = false;
+                        this->window->clear(sf::Color::Black);
+                        this->sound.stop();
+                    }
+                else if ((this->event.mouseButton.x >= 300 && this->event.mouseButton.x <= 700)
+                    && (this->event.mouseButton.y >= 500 && this->event.mouseButton.y <= 600)){
+                        this->menu_stay = false;
+                        this->extreme_mode = true;
                         this->window->clear(sf::Color::Black);
                         this->sound.stop();
                     }
@@ -125,4 +151,6 @@ void main_menu::checkSound(){
     }
 };
 
-
+bool main_menu::get_mode(){
+    return this->extreme_mode;
+}

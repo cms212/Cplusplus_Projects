@@ -46,7 +46,7 @@ void snake::updateSnake(){
         }
         return;
     };
-void snake::updateDirection(sf::RenderWindow* window){
+bool snake::updateDirection(sf::RenderWindow* window){
         
         while (window->pollEvent(this->event)){
             
@@ -54,24 +54,36 @@ void snake::updateDirection(sf::RenderWindow* window){
             //cout << "keypressed\n";
             //cout << this->directionChange.key.code << "\n";
                 if (this->event.key.code == sf::Keyboard::W){
+                    if (getSnakeDirection() == DOWN && this->snake_length > 1){
+                        return true;
+                    }
                 this->head->setdirection(UP);
                 //cout << "U\n";
                 }
                 if (this->event.key.code == sf::Keyboard::A){
+                    if (getSnakeDirection() == RIGHT && this->snake_length > 1){
+                        return true;
+                    }
                 this->head->setdirection(LEFT);
                 //cout << "L\n";
                 }
                 if (this->event.key.code == sf::Keyboard::S){
+                    if (getSnakeDirection() == UP && this->snake_length > 1){
+                        return true;
+                    }
                 this->head->setdirection(DOWN);
                 //cout << "D\n";
                 }
                 if (this->event.key.code == sf::Keyboard::D){
+                    if (getSnakeDirection() == LEFT && this->snake_length > 1){
+                        return true;
+                    }
                 this->head->setdirection(RIGHT);
                 //cout << "R\n";
                 }
                 if (this->event.key.code == sf::Keyboard::Escape){
                 window->close();
-                //cout << "R\n";
+                exit(0);
                 }
                 
             }
@@ -79,7 +91,7 @@ void snake::updateDirection(sf::RenderWindow* window){
                 window->close();
             }
         }
-    return;
+    return false;
 };
 
 void snake::addBlock(){
@@ -107,6 +119,7 @@ void snake::addBlock(){
         b->setdirection(this->tail->getdirection());
         this->tail = b;
     }
+    this->snake_length += 1;
     return;
 };
 
@@ -129,14 +142,23 @@ void snake::drawSnake(sf::RenderWindow* window){
     return;
 };
 
-bool snake::checkCollisionFood(food* f){
+bool snake::checkCollisionFood(food* f, set<tuple<int, int>>* o_coors){
+
     if (this->head->getrow() == f->getrow() && this->head->getcol() == f->getcol()){
         addBlock();
         int x = rand()%50;
         int y = rand()%47 + 3;
-        while(f->checkLocation(this->tail, x, y)){
-            x = rand() % 49;
-            y = rand() % 49;
+        if (o_coors != NULL){
+        while(f->checkLocation(this->tail, x, y) || o_coors->find(make_tuple(y, x)) != o_coors->end()){
+            x = rand()%50;
+            y = rand()%46 + 3;
+        }
+        }
+        else{
+            while(f->checkLocation(this->tail, x, y)){
+            x = rand()%50;
+            y = rand()%46+3;
+            }
         }
         f->setcol(x);
         f->setrow(y);
@@ -164,6 +186,18 @@ void snake::updateBlockLocations(){
     }
     return;
 };
+
+void snake::checkCollisionsObstacles(set<tuple<int, int>>* o_coors){
+    if (o_coors != nullptr) {
+        for (const auto& t : *o_coors) {
+            if (this->head->getrow() == get<0>(t) && this->head->getcol() == get<1>(t)){
+                this->isalive = false;
+                return;    
+            }
+        }
+        return;
+    }
+}
 
 void snake::checkCollisionBody(){
     block* curr = this->tail;
@@ -201,6 +235,10 @@ void snake::setSnakeDirection(direction d){
 direction snake::getSnakeDirection(){
     return this->head->getdirection();
 };
+
+block* snake::get_tail(){
+    return this->tail;
+}
 
 
 
